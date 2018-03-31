@@ -270,7 +270,91 @@ namespace NQueensProblem
             queens.Add(queen);
             RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT);
         }
-        
+
+        #region Grapth part
+
+        /// <summary>
+        /// 2 - обычное сравнение
+        /// 1 - для диагнальных 
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="desiredDifference"></param>
+        /// <returns></returns>
+        private bool IsBadVerticalColor(Cell center, int desiredDifference)
+        {
+            int leftX = center.PositionX - 1;
+            int rightX = center.PositionX + 1;
+            int centerValue = GetCell(center.PositionX, center.PositionY).ColorValue;
+            //checkes if we are in board
+            if (leftX >= 0)
+            {
+                if (GetCell(leftX, center.PositionY).ColorValue - centerValue >= desiredDifference)
+                {
+                    return true;
+                }
+            }
+            //checkes if we are in board
+            if (rightX != Parametrs.BOARD_DIMENSION)
+            {
+                if (GetCell(center.PositionX, rightX).ColorValue - centerValue >= desiredDifference)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsBadHorizontalColor(Cell center, int desiredDifference)
+        {
+            int topY = center.PositionY + 1;
+            int bottomY = center.PositionY - 1;
+            int centerValue = GetCell(center.PositionX, center.PositionY).ColorValue;
+            //checkes if we are in board
+            if (bottomY != Parametrs.BOARD_DIMENSION)
+            {
+                if (GetCell(center.PositionX, bottomY).ColorValue - centerValue >= desiredDifference)
+                {
+                    return true;
+                }
+            }
+            //checkes if we are in board
+            if (topY >= 0)
+            {
+                if (GetCell(center.PositionX, topY).ColorValue - centerValue >= desiredDifference)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsBadDiagonalColor(Cell center)
+        {
+            //todo - смоти слайд;
+            int desiredDifference = Parametrs.DIAGONAL_DESIRED_DIFFERENCE;
+            int topLeftX = center.PositionX - 1;
+            int topLeftY = center.PositionY - 1;
+
+            int bottomLeftX = center.PositionX - 1;
+            int bottomLeftY = center.PositionY + 1;
+
+            int topRightX = center.PositionX + 1;
+            int topRightY = center.PositionY - 1;
+
+            int bottomRightX = center.PositionX + 1;
+            int bottomRightY = center.PositionY + 1;
+
+            int centerValue = GetCell(center.PositionX, center.PositionY).ColorValue;
+            bool result = IsBadVerticalColor(GetCell(topLeftX, topLeftY), desiredDifference) 
+                    && IsBadVerticalColor(GetCell(bottomLeftX, bottomLeftY), desiredDifference)  
+                    && IsBadHorizontalColor(GetCell(topRightX, topRightY), desiredDifference) 
+                    && IsBadHorizontalColor(GetCell(bottomRightX, bottomRightY), desiredDifference);
+            return (result);
+            
+        }
+
+        #endregion
+
         public void RenderAllLinesForQueen(Queen queen, Color color)
         {
             foreach (var cell in cells)
