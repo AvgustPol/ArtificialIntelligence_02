@@ -13,11 +13,11 @@ namespace NQueensProblem
             InitializeComponent();
             cellControls = new List<CellControl>();
             board = new Board(this);
+            CreateBoard();
         }
-
-        private void buttonCreateBoard_Click(object sender, EventArgs e)
+        
+        private void CreateBoard()
         {
-            //Board board = new Board();
             for (int x = 0; x < Parametrs.BOARD_DIMENSION; x++)
             {
                 for (int y = 0; y < Parametrs.BOARD_DIMENSION; y++)
@@ -25,7 +25,6 @@ namespace NQueensProblem
                     cellControls.Add(new CellControl(this, x, y, board));
                 }
             }
-            
         }
 
         private void buttonBacktracking_Click(object sender, EventArgs e)

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonCreateBoard = new System.Windows.Forms.Button();
             this.labelIsFound = new System.Windows.Forms.Label();
             this.buttonBacktracking = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -37,17 +36,6 @@
             this.buttonPlusDelay = new System.Windows.Forms.Button();
             this.buttonMinusDelay = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // buttonCreateBoard
-            // 
-            this.buttonCreateBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCreateBoard.Location = new System.Drawing.Point(960, 377);
-            this.buttonCreateBoard.Name = "buttonCreateBoard";
-            this.buttonCreateBoard.Size = new System.Drawing.Size(128, 65);
-            this.buttonCreateBoard.TabIndex = 0;
-            this.buttonCreateBoard.Text = "Create board";
-            this.buttonCreateBoard.UseVisualStyleBackColor = true;
-            this.buttonCreateBoard.Click += new System.EventHandler(this.buttonCreateBoard_Click);
             // 
             // labelIsFound
             // 
@@ -99,7 +87,7 @@
             this.textBoxDelay.Name = "textBoxDelay";
             this.textBoxDelay.Size = new System.Drawing.Size(125, 22);
             this.textBoxDelay.TabIndex = 5;
-            this.textBoxDelay.Text = "1000";
+            this.textBoxDelay.Text = "1";
             // 
             // buttonPlusDelay
             // 
@@ -137,7 +125,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonBacktracking);
             this.Controls.Add(this.labelIsFound);
-            this.Controls.Add(this.buttonCreateBoard);
             this.Name = "FormMain";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -146,8 +133,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonCreateBoard;
         private System.Windows.Forms.Label labelIsFound;
         private System.Windows.Forms.Button buttonBacktracking;
         private System.Windows.Forms.Button button1;

@@ -7,8 +7,8 @@
         public Queen Queen { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public int ColorValue { get; set; }
         public bool WasHere { get; set; }
+        public bool UnderAttack { get; set; }
         public Cell(int x, int y, CellControl cellControl)
         {
             CellControl = cellControl;
@@ -16,11 +16,7 @@
             PositionX = x;
             PositionY = y;
             WasHere = false;
-        }        
-
-        public bool IsEmpty()
-        {
-            return Queen == null;
+            UnderAttack = false;
         }
     }
 }

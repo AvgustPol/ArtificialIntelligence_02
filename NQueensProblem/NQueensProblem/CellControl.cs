@@ -28,7 +28,7 @@ namespace NQueensProblem
             Board.Add(cell);
         }
 
-        private void SetDefaultColor()
+        public void SetDefaultColor()
         {
             if (cell.PositionX % 2 == 0)
                 if (cell.PositionY % 2 == 1)
