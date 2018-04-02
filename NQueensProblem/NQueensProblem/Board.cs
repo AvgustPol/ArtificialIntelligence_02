@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NQueensProblem
@@ -82,8 +80,9 @@ namespace NQueensProblem
             if (yPosition == Parametrs.BOARD_DIMENSION)
                 return true;
             //ищем следующий свободный на уровне y + такой , что бы мы там еще не были 
-            Cell nextEmptyCell = GetNextEmptyCell(yPosition);
-            if (nextEmptyCell != null)
+            //Cell nextEmptyCell = GetNextEmptyCell(yPosition); 
+            Cell nextEmptyCell = GetNextRandomEmptyCell(yPosition); 
+            if(nextEmptyCell != null)
             {
                 Queen queen = new Queen(nextEmptyCell);
                 AddQueen(queen);
@@ -118,8 +117,7 @@ namespace NQueensProblem
 
         private Cell GetNextRandomEmptyCell(int yPosition)
         {
-            int randomIndex = random.Next(Parametrs.BOARD_DIMENSION ^ 2);
-
+            Shuffle(cells);
             foreach (var cell in cells)
             {
                 //если тут еще не пробовали поставить королеву и она никому тут не мешает 
@@ -129,6 +127,19 @@ namespace NQueensProblem
                 }
             }
             return null;
+        }
+
+        public void Shuffle(List<Cell> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Cell value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
 
         private void ClearAllCells(int yPosition)
