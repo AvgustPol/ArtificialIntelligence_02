@@ -28,29 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelIsFound = new System.Windows.Forms.Label();
             this.buttonBacktracking = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.buttonForwardChecking = new System.Windows.Forms.Button();
-            this.textBoxDelay = new System.Windows.Forms.TextBox();
-            this.buttonPlusDelay = new System.Windows.Forms.Button();
-            this.buttonMinusDelay = new System.Windows.Forms.Button();
+            this.textBoxGreenDelay = new System.Windows.Forms.TextBox();
+            this.buttonPlusGreenDelay = new System.Windows.Forms.Button();
+            this.buttonMinusGreenDelay = new System.Windows.Forms.Button();
+            this.labelGreenDelayTime = new System.Windows.Forms.Label();
+            this.labelRedDelayTime = new System.Windows.Forms.Label();
+            this.buttonMinusRedDelay = new System.Windows.Forms.Button();
+            this.buttonPlusRedDelay = new System.Windows.Forms.Button();
+            this.textBoxRedDelay = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxGenerationsNumber = new System.Windows.Forms.TextBox();
+            this.labelGenerationsTime = new System.Windows.Forms.Label();
+            this.textBoxResultTime = new System.Windows.Forms.TextBox();
+            this.labelFinished = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // labelIsFound
-            // 
-            this.labelIsFound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIsFound.AutoSize = true;
-            this.labelIsFound.Location = new System.Drawing.Point(951, 109);
-            this.labelIsFound.Name = "labelIsFound";
-            this.labelIsFound.Size = new System.Drawing.Size(134, 17);
-            this.labelIsFound.TabIndex = 1;
-            this.labelIsFound.Text = "TRUE OR FALSE ? ";
             // 
             // buttonBacktracking
             // 
             this.buttonBacktracking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBacktracking.Location = new System.Drawing.Point(960, 269);
+            this.buttonBacktracking.Location = new System.Drawing.Point(1041, 30);
             this.buttonBacktracking.Name = "buttonBacktracking";
             this.buttonBacktracking.Size = new System.Drawing.Size(128, 65);
             this.buttonBacktracking.TabIndex = 2;
@@ -58,21 +56,10 @@
             this.buttonBacktracking.UseVisualStyleBackColor = true;
             this.buttonBacktracking.Click += new System.EventHandler(this.buttonBacktracking_Click);
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(960, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 65);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Found safe?";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // buttonForwardChecking
             // 
             this.buttonForwardChecking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonForwardChecking.Location = new System.Drawing.Point(960, 163);
+            this.buttonForwardChecking.Location = new System.Drawing.Point(1189, 30);
             this.buttonForwardChecking.Name = "buttonForwardChecking";
             this.buttonForwardChecking.Size = new System.Drawing.Size(128, 65);
             this.buttonForwardChecking.TabIndex = 4;
@@ -80,51 +67,166 @@
             this.buttonForwardChecking.UseVisualStyleBackColor = true;
             this.buttonForwardChecking.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBoxDelay
+            // textBoxGreenDelay
             // 
-            this.textBoxDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDelay.Location = new System.Drawing.Point(960, 477);
-            this.textBoxDelay.Name = "textBoxDelay";
-            this.textBoxDelay.Size = new System.Drawing.Size(125, 22);
-            this.textBoxDelay.TabIndex = 5;
-            this.textBoxDelay.Text = "1";
+            this.textBoxGreenDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxGreenDelay.Location = new System.Drawing.Point(1197, 166);
+            this.textBoxGreenDelay.Name = "textBoxGreenDelay";
+            this.textBoxGreenDelay.Size = new System.Drawing.Size(125, 22);
+            this.textBoxGreenDelay.TabIndex = 5;
+            this.textBoxGreenDelay.Text = "100";
             // 
-            // buttonPlusDelay
+            // buttonPlusGreenDelay
             // 
-            this.buttonPlusDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPlusDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPlusDelay.Location = new System.Drawing.Point(1043, 505);
-            this.buttonPlusDelay.Name = "buttonPlusDelay";
-            this.buttonPlusDelay.Size = new System.Drawing.Size(42, 28);
-            this.buttonPlusDelay.TabIndex = 6;
-            this.buttonPlusDelay.Text = "+";
-            this.buttonPlusDelay.UseVisualStyleBackColor = true;
-            this.buttonPlusDelay.Click += new System.EventHandler(this.buttonPlusDelay_Click);
+            this.buttonPlusGreenDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPlusGreenDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPlusGreenDelay.Location = new System.Drawing.Point(1280, 194);
+            this.buttonPlusGreenDelay.Name = "buttonPlusGreenDelay";
+            this.buttonPlusGreenDelay.Size = new System.Drawing.Size(42, 28);
+            this.buttonPlusGreenDelay.TabIndex = 6;
+            this.buttonPlusGreenDelay.Text = "+";
+            this.buttonPlusGreenDelay.UseVisualStyleBackColor = true;
+            this.buttonPlusGreenDelay.Click += new System.EventHandler(this.buttonPlusDelay_Click);
             // 
-            // buttonMinusDelay
+            // buttonMinusGreenDelay
             // 
-            this.buttonMinusDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMinusDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonMinusDelay.Location = new System.Drawing.Point(960, 505);
-            this.buttonMinusDelay.Name = "buttonMinusDelay";
-            this.buttonMinusDelay.Size = new System.Drawing.Size(42, 28);
-            this.buttonMinusDelay.TabIndex = 7;
-            this.buttonMinusDelay.Text = "-";
-            this.buttonMinusDelay.UseVisualStyleBackColor = true;
-            this.buttonMinusDelay.Click += new System.EventHandler(this.buttonMinusDelay_Click);
+            this.buttonMinusGreenDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMinusGreenDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonMinusGreenDelay.Location = new System.Drawing.Point(1197, 194);
+            this.buttonMinusGreenDelay.Name = "buttonMinusGreenDelay";
+            this.buttonMinusGreenDelay.Size = new System.Drawing.Size(42, 28);
+            this.buttonMinusGreenDelay.TabIndex = 7;
+            this.buttonMinusGreenDelay.Text = "-";
+            this.buttonMinusGreenDelay.UseVisualStyleBackColor = true;
+            this.buttonMinusGreenDelay.Click += new System.EventHandler(this.buttonMinusDelay_Click);
+            // 
+            // labelGreenDelayTime
+            // 
+            this.labelGreenDelayTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelGreenDelayTime.AutoSize = true;
+            this.labelGreenDelayTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelGreenDelayTime.Location = new System.Drawing.Point(1189, 131);
+            this.labelGreenDelayTime.Name = "labelGreenDelayTime";
+            this.labelGreenDelayTime.Size = new System.Drawing.Size(141, 20);
+            this.labelGreenDelayTime.TabIndex = 8;
+            this.labelGreenDelayTime.Text = "Green delay time ";
+            // 
+            // labelRedDelayTime
+            // 
+            this.labelRedDelayTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelRedDelayTime.AutoSize = true;
+            this.labelRedDelayTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRedDelayTime.Location = new System.Drawing.Point(1044, 131);
+            this.labelRedDelayTime.Name = "labelRedDelayTime";
+            this.labelRedDelayTime.Size = new System.Drawing.Size(125, 20);
+            this.labelRedDelayTime.TabIndex = 12;
+            this.labelRedDelayTime.Text = "Red delay time ";
+            // 
+            // buttonMinusRedDelay
+            // 
+            this.buttonMinusRedDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMinusRedDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonMinusRedDelay.Location = new System.Drawing.Point(1044, 194);
+            this.buttonMinusRedDelay.Name = "buttonMinusRedDelay";
+            this.buttonMinusRedDelay.Size = new System.Drawing.Size(42, 28);
+            this.buttonMinusRedDelay.TabIndex = 11;
+            this.buttonMinusRedDelay.Text = "-";
+            this.buttonMinusRedDelay.UseVisualStyleBackColor = true;
+            // 
+            // buttonPlusRedDelay
+            // 
+            this.buttonPlusRedDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPlusRedDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPlusRedDelay.Location = new System.Drawing.Point(1127, 194);
+            this.buttonPlusRedDelay.Name = "buttonPlusRedDelay";
+            this.buttonPlusRedDelay.Size = new System.Drawing.Size(42, 28);
+            this.buttonPlusRedDelay.TabIndex = 10;
+            this.buttonPlusRedDelay.Text = "+";
+            this.buttonPlusRedDelay.UseVisualStyleBackColor = true;
+            // 
+            // textBoxRedDelay
+            // 
+            this.textBoxRedDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxRedDelay.Location = new System.Drawing.Point(1044, 166);
+            this.textBoxRedDelay.Name = "textBoxRedDelay";
+            this.textBoxRedDelay.Size = new System.Drawing.Size(125, 22);
+            this.textBoxRedDelay.TabIndex = 9;
+            this.textBoxRedDelay.Text = "100";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(1150, 265);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(179, 20);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Number of generations";
+            // 
+            // textBoxGenerationsNumber
+            // 
+            this.textBoxGenerationsNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxGenerationsNumber.Location = new System.Drawing.Point(1177, 300);
+            this.textBoxGenerationsNumber.Name = "textBoxGenerationsNumber";
+            this.textBoxGenerationsNumber.Size = new System.Drawing.Size(125, 22);
+            this.textBoxGenerationsNumber.TabIndex = 13;
+            this.textBoxGenerationsNumber.Text = "100";
+            // 
+            // labelGenerationsTime
+            // 
+            this.labelGenerationsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelGenerationsTime.AutoSize = true;
+            this.labelGenerationsTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelGenerationsTime.Location = new System.Drawing.Point(1171, 359);
+            this.labelGenerationsTime.Name = "labelGenerationsTime";
+            this.labelGenerationsTime.Size = new System.Drawing.Size(137, 20);
+            this.labelGenerationsTime.TabIndex = 16;
+            this.labelGenerationsTime.Text = "Generations time";
+            // 
+            // textBoxResultTime
+            // 
+            this.textBoxResultTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxResultTime.Location = new System.Drawing.Point(1166, 394);
+            this.textBoxResultTime.Name = "textBoxResultTime";
+            this.textBoxResultTime.Size = new System.Drawing.Size(147, 22);
+            this.textBoxResultTime.TabIndex = 15;
+            this.textBoxResultTime.Text = "Result time will be here";
+            // 
+            // labelFinished
+            // 
+            this.labelFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelFinished.AutoSize = true;
+            this.labelFinished.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFinished.ForeColor = System.Drawing.Color.LimeGreen;
+            this.labelFinished.Location = new System.Drawing.Point(1162, 419);
+            this.labelFinished.Name = "labelFinished";
+            this.labelFinished.Size = new System.Drawing.Size(155, 39);
+            this.labelFinished.TabIndex = 17;
+            this.labelFinished.Text = "Finished";
+            this.labelFinished.Visible = false;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 674);
-            this.Controls.Add(this.buttonMinusDelay);
-            this.Controls.Add(this.buttonPlusDelay);
-            this.Controls.Add(this.textBoxDelay);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1347, 639);
+            this.Controls.Add(this.labelFinished);
+            this.Controls.Add(this.labelGenerationsTime);
+            this.Controls.Add(this.textBoxResultTime);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxGenerationsNumber);
+            this.Controls.Add(this.labelRedDelayTime);
+            this.Controls.Add(this.buttonMinusRedDelay);
+            this.Controls.Add(this.buttonPlusRedDelay);
+            this.Controls.Add(this.textBoxRedDelay);
+            this.Controls.Add(this.labelGreenDelayTime);
+            this.Controls.Add(this.buttonMinusGreenDelay);
+            this.Controls.Add(this.buttonPlusGreenDelay);
+            this.Controls.Add(this.textBoxGreenDelay);
             this.Controls.Add(this.buttonForwardChecking);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonBacktracking);
-            this.Controls.Add(this.labelIsFound);
             this.Name = "FormMain";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -133,13 +235,21 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label labelIsFound;
         private System.Windows.Forms.Button buttonBacktracking;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonForwardChecking;
-        private System.Windows.Forms.TextBox textBoxDelay;
-        private System.Windows.Forms.Button buttonPlusDelay;
-        private System.Windows.Forms.Button buttonMinusDelay;
+        private System.Windows.Forms.TextBox textBoxGreenDelay;
+        private System.Windows.Forms.Button buttonPlusGreenDelay;
+        private System.Windows.Forms.Button buttonMinusGreenDelay;
+        private System.Windows.Forms.Label labelGreenDelayTime;
+        private System.Windows.Forms.Label labelRedDelayTime;
+        private System.Windows.Forms.Button buttonMinusRedDelay;
+        private System.Windows.Forms.Button buttonPlusRedDelay;
+        private System.Windows.Forms.TextBox textBoxRedDelay;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxGenerationsNumber;
+        private System.Windows.Forms.Label labelGenerationsTime;
+        private System.Windows.Forms.TextBox textBoxResultTime;
+        private System.Windows.Forms.Label labelFinished;
     }
 }
 

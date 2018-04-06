@@ -35,11 +35,10 @@ namespace NQueensProblem
             Thread.Sleep(Form.GetRenderDelay());
         }
 
-        public List<Queen> BackTracking()
+        public void BackTracking()
         {
             // first y position is 0
             FindQueensRecursiveBackTracking(0);
-            return queens;
         }
 
         private bool FindQueensRecursiveBackTracking(int yPosition)
@@ -68,10 +67,10 @@ namespace NQueensProblem
         }
 
 
-        public List<Queen> ForwardChecking()
+        public void ForwardChecking()
         {
-            bool result = FindQueensRecursiveForwardChencking(0);
-            return queens;
+            // 0 - first cell vertical index
+            FindQueensRecursiveForwardChencking(0);
         }
 
         private bool FindQueensRecursiveForwardChencking(int yPosition)
@@ -341,6 +340,11 @@ namespace NQueensProblem
         
         private void RemoveQueenFromBoard(Queen queen)
         {
+            //RenderAllLinesForQueen(queen, Parametrs.COLOR_BEAT);
+            //Application.DoEvents();
+            //Thread.Sleep(Form.GetRenderDelay());
+            //RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT);
+
             SetDefualtColorsToLines(queen);
             DeleteAllCellsUnderAttack(queen);
             queens.Remove(queen);
@@ -356,6 +360,11 @@ namespace NQueensProblem
                     cell.CellControl.SetDefaultColor();
                 }
             }
+        }
+
+        private void ShowRedLines()
+        {
+
         }
     }
 }

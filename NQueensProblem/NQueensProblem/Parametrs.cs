@@ -4,8 +4,8 @@ namespace NQueensProblem
 {
     static class Parametrs
     {
-        static readonly public int BOARD_DIMENSION = 8;
-        static readonly public int NUMBER_OF_QUEENS = 8;
+        static readonly public int BOARD_DIMENSION = 20;
+        static readonly public int NUMBER_OF_QUEENS = 20;
 
         static readonly public int CELL_SIZE = 50;
         static readonly public int DIAGONAL_DESIRED_DIFFERENCE = 2;
