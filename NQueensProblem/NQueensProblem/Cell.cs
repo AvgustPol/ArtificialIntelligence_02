@@ -18,5 +18,10 @@
             WasHere = false;
             UnderAttack = false;
         }
+
+        public string ShowPozitions()
+        {
+            return $"({PositionX}, {PositionY})";
+        }
     }
 }

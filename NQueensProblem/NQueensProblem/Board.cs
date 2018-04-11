@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define VISUALIZATION
+//#undef VISUALIZATION
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,33 +10,32 @@ using System.Windows.Forms;
 
 namespace NQueensProblem
 {
-    /// <summary>
-    /// сделать не статическим и передать его в целл как отец
-    /// </summary>
-
     public class Board
     {
-        FormMain Form;
+        FormMain boardForm;
         List<Cell> cells;
         List<Queen> queens;
         Random random = new Random((int)DateTime.Now.Ticks);
 
         public Board(FormMain Form)
         {
-            this.Form = Form;
+            this.boardForm = Form;
             queens = new List<Queen>();
             cells = new List<Cell>();
         }
 
+#if VISUALIZATION
         public void RenderAllQueens()
         {
             foreach (var item in queens)
             {
-                item.cell.CellControl.SetDefaultImage();
+                item.Cell.CellControl.SetDefaultImage();
             }
             Application.DoEvents();
-            Thread.Sleep(Form.GetRenderDelay());
+            Thread.Sleep(boardForm.GetRenderDelay());
         }
+#endif
+
 
         public void BackTracking()
         {
@@ -41,27 +43,26 @@ namespace NQueensProblem
             FindQueensRecursiveBackTracking(0);
         }
 
-        private bool FindQueensRecursiveBackTracking(int yPosition)
+        private bool FindQueensRecursiveBackTracking(int yPosition) 
         {
+#if VISUALIZATION
             RenderAllQueens();
+#endif
             if (yPosition == Parametrs.BOARD_DIMENSION)
                 return true;
             for (int xPosition = 0; xPosition < Parametrs.BOARD_DIMENSION; xPosition++)
             {
-                Queen queen = new Queen(GetCell(xPosition, yPosition));
-                AddQueen(queen);
-                if (FoundSafe())
+                Cell newQueenCell = GetCell(xPosition, yPosition);
+                
+                if (FoundSafeOptimal(newQueenCell))
                 {
+                    Queen queen = new Queen(newQueenCell);
+                    AddQueen(queen);
                     if (FindQueensRecursiveBackTracking(yPosition + 1))
                         return true;
                     else
                         RemoveQueenFromBoard(queen);
                 }
-                else
-                {
-                    RemoveQueenFromBoard(queen);
-                }
-
             }
             return false;
         }
@@ -72,19 +73,23 @@ namespace NQueensProblem
             // 0 - first cell vertical index
             FindQueensRecursiveForwardChencking(0);
         }
-
+        
         private bool FindQueensRecursiveForwardChencking(int yPosition)
         {
+#if VISUALIZATION
             RenderAllQueens();
+#endif
             if (yPosition == Parametrs.BOARD_DIMENSION)
                 return true;
             //ищем следующий свободный на уровне y + такой , что бы мы там еще не были 
             //Cell nextEmptyCell = GetNextEmptyCell(yPosition); 
-            Cell nextEmptyCell = GetNextRandomEmptyCell(yPosition); 
-            if(nextEmptyCell != null)
+            Cell nextEmptyCell = GetNextRandomEmptyCell(yPosition);
+            
+            if (nextEmptyCell != null)
             {
                 Queen queen = new Queen(nextEmptyCell);
                 AddQueen(queen);
+                boardForm.AddTextToTextBox($"Queen added to {nextEmptyCell.ShowPozitions()}\n");
                 if (FindQueensRecursiveForwardChencking(yPosition + 1))
                     return true;
                 else
@@ -98,6 +103,7 @@ namespace NQueensProblem
                     }
                 }
             }
+            //boardForm.AddTextToTextBox($"Cell {nextEmptyCell.ShowPozitions()} is bad for queen to find solution\n");
             return false;
         }
 
@@ -150,6 +156,24 @@ namespace NQueensProblem
                     cell.WasHere = false;
                 }
             }
+        }
+
+        #region CellsComparing
+
+        /// <summary>
+        /// Checkes if any of queens beats another queen
+        /// все королевы не бьют друг друга ? 
+        /// </summary>
+        /// <returns>true - if any queen doesnt beat any of other queen</returns>
+        public bool FoundSafeOptimal(Cell newQueenCell)
+        {
+            for (int i = 0; i < queens.Count; i++)
+            {
+                if (CheckBeats(queens.ElementAt(i).Cell, newQueenCell))
+                    return false;
+            }
+            return true;
+
         }
 
         /// <summary>
@@ -214,7 +238,7 @@ namespace NQueensProblem
 
         private bool QueenBeatsDiagonal(Queen queen, Queen otherQueen)
         {
-            return BeatsDiagonal(queen.cell, otherQueen.cell);
+            return BeatsDiagonal(queen.Cell, otherQueen.Cell);
         }
 
         private bool BeatsDiagonal(Cell сell, Cell otherCell)
@@ -236,7 +260,7 @@ namespace NQueensProblem
 
         private bool QueenBeatsVertical(Queen queen, Queen otherQueen)
         {
-            return BeatsVertical(queen.cell, otherQueen.cell);
+            return BeatsVertical(queen.Cell, otherQueen.Cell);
         }
 
         private bool BeatsVertical(Cell сell, Cell otherCell)
@@ -250,7 +274,7 @@ namespace NQueensProblem
 
         private bool QueenBeatsHorizontal(Queen queen, Queen otherQueen)
         {
-            return BeatsHorizontal(queen.cell, otherQueen.cell);
+            return BeatsHorizontal(queen.Cell, otherQueen.Cell);
         }
 
         private bool BeatsHorizontal(Cell сell, Cell otherCell)
@@ -261,6 +285,7 @@ namespace NQueensProblem
             }
             return false;
         }
+        #endregion
 
         private Cell GetCell(int x, int y)
         {
@@ -282,14 +307,16 @@ namespace NQueensProblem
         {
             queens.Add(queen);
             SetAllCellsUnderAttack(queen);
-            RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT);
+#if VISUALIZATION
+            RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT_DART_1);
+#endif
         }
         
         private void SetAllCellsUnderAttack(Queen queen)
         {
             foreach (var cell in cells)
             {
-                if(CheckBeats(queen.cell, cell))
+                if(CheckBeats(queen.Cell, cell))
                 {
                     cell.UnderAttack = true;
                 }
@@ -301,13 +328,13 @@ namespace NQueensProblem
             foreach (var cell in cells)
             {
                 //если коровела, которая была ранее могла задеть фигиру на позиции сell
-                if (CheckBeats(queen.cell, cell))
+                if (CheckBeats(queen.Cell, cell))
                     //и никто другой не мог ее там задеть 
                     if(CheckBeatsOtherQueens(queen, cell))
                         cell.UnderAttack = false;
                 //в противном случае ничего не происходит, так как другие фигуры и так могут задеть сell
             }
-            queen.cell.UnderAttack = false;
+            queen.Cell.UnderAttack = false;
         }
 
         /// <summary>
@@ -321,34 +348,49 @@ namespace NQueensProblem
             foreach (var otherQueen in queens)
             {
                 if(queen != otherQueen)
-                    if (CheckBeats(otherQueen.cell, cell))
+                    if (CheckBeats(otherQueen.Cell, cell))
                         return false;
             }
             return true;
         }
 
+        
+        
+        private void RemoveQueenFromBoard(Queen queen)
+        {
+#if VISUALIZATION
+            queen.Cell.CellControl.BackColor = Color.Red; 
+            Application.DoEvents();
+            Thread.Sleep(boardForm.GetRenderDelay());
+            RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT_DART_1);
+            SetDefualtColorsToLines(queen);
+            boardForm.AddTextToTextBox($"Queen deleted from {queen.Cell.ShowPozitions()}");
+#endif
+            DeleteAllCellsUnderAttack(queen);
+            queens.Remove(queen);
+
+#if VISUALIZATION
+            queen.Cell.CellControl.RemoveImage();
+#endif
+        }
+
+#if VISUALIZATION
         public void RenderAllLinesForQueen(Queen queen, Color color)
         {
             foreach (var cell in cells)
             {
-                if (CheckBeats(queen.cell, cell))
-                {
-                    cell.CellControl.BackColor = color;
+                if (CheckBeats(queen.Cell, cell))
+                {   
+                    if (cell.CellControl.BackColor == Parametrs.COLOR_LIGHT)
+                    {
+                        cell.CellControl.BackColor = Parametrs.COLOR_DOESNT_BEAT_DART_1;
+                    }
+                    if (cell.CellControl.BackColor == Parametrs.COLOR_DART)
+                    {
+                        cell.CellControl.BackColor = Parametrs.COLOR_DOESNT_BEAT_DART_2;
+                    }
                 }
             }
-        }
-        
-        private void RemoveQueenFromBoard(Queen queen)
-        {
-            //RenderAllLinesForQueen(queen, Parametrs.COLOR_BEAT);
-            //Application.DoEvents();
-            //Thread.Sleep(Form.GetRenderDelay());
-            //RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT);
-
-            SetDefualtColorsToLines(queen);
-            DeleteAllCellsUnderAttack(queen);
-            queens.Remove(queen);
-            queen.cell.CellControl.RemoveImage();
         }
 
         public void SetDefualtColorsToLines(Queen queen)
@@ -361,11 +403,7 @@ namespace NQueensProblem
                 }
             }
         }
-
-        private void ShowRedLines()
-        {
-
-        }
+#endif
     }
 }
 

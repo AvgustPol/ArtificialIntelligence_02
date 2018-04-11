@@ -2,14 +2,12 @@
 {
     public class Queen
     {
-        public Cell cell { get; set; }
+        public Cell Cell { get; set; }
 
         public Queen(Cell cell)
         {
-            this.cell = cell;
+            this.Cell = cell;
             cell.WasHere = true;
         }
-        
-        
     }
 }

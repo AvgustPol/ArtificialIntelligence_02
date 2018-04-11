@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define VISUALIZATION
+//#undef VISUALIZATION
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,21 +16,20 @@ namespace NQueensProblem
         {
             cell = new Cell(x, y, this);
             Board = board;
-
+#if(VISUALIZATION)
             #region Creating cell
             Parent = form;
             Location = new Point(x * Parametrs.CELL_SIZE + Parametrs.CELL_SIZE, y * Parametrs.CELL_SIZE + Parametrs.CELL_SIZE);
-            cell.PositionX = x;
-            cell.PositionY = y;
             Size = new Size(Parametrs.CELL_SIZE, Parametrs.CELL_SIZE);
             Click += new EventHandler(OnCellClick);
             BackgroundImageLayout = ImageLayout.Stretch;
             SetDefaultColor();
             #endregion
-
+#endif
             Board.Add(cell);
         }
 
+#if VISUALIZATION
         public void SetDefaultColor()
         {
             if (cell.PositionX % 2 == 0)
@@ -64,7 +66,7 @@ namespace NQueensProblem
         {
             BackgroundImage = null;
         }
-
+#endif
     }
 }
 
