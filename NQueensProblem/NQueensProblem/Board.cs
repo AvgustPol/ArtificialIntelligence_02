@@ -1,8 +1,9 @@
-﻿#define VISUALIZATION
-//#undef VISUALIZATION
+﻿//#define VISUALIZATION
+#undef VISUALIZATION
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -45,6 +46,7 @@ namespace NQueensProblem
 
         private bool FindQueensRecursiveBackTracking(int yPosition) 
         {
+            Parametrs.RECURSIVE_COUNTER++;
 #if VISUALIZATION
             RenderAllQueens();
 #endif
@@ -67,6 +69,198 @@ namespace NQueensProblem
             return false;
         }
 
+        public void SquareBackTracking()
+        {
+            FindSquareBackTracking(0,0);
+        }
+
+        #region Kwadrat part
+        private bool FindSquareBackTracking(int xPosition, int yPosition)
+        {
+            Parametrs.RECURSIVE_COUNTER++;
+
+            if (yPosition == Parametrs.BOARD_DIMENSION)
+                return true;
+            Cell nextSquareCell = GetCell(xPosition, yPosition);
+
+            for (int value = 1; value < Parametrs.BOARD_DIMENSION + 1; value++)
+            {
+                nextSquareCell.Value = value;
+                if (IsGood(nextSquareCell))
+                {
+                    if (FindSquareBackTracking(
+                        xPosition + 1 != Parametrs.BOARD_DIMENSION ? xPosition + 1 : 0,
+                        xPosition + 1 != Parametrs.BOARD_DIMENSION ? yPosition : yPosition + 1
+                    ))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        nextSquareCell.Value = null;
+                    }
+                }
+            }
+            nextSquareCell.Value = null;
+            return false;
+        }
+
+        /// <summary>
+        /// True если по вертикали и по горизонтали нет таких чисел
+        /// </summary>
+        /// <param name="newSquareCell"></param>
+        /// <returns></returns>
+        private bool IsGood(Cell newSquareCell)
+        {
+            if (IsGoodVertical(newSquareCell))
+            {
+                return IsGoodHorizontal(newSquareCell);
+            }
+            else
+                return false;
+        }
+
+        private bool IsGoodVertical(Cell newSquareCell)
+        {
+            foreach (var cell in cells)
+            {
+                //проверяем есть ли в целл вообще число. Если его нет, тогда мы точно ему не мешаем.
+                if (cell.Value != null)
+                {
+                    if (!cell.Equals(newSquareCell))
+                    {
+                        if (cell.PositionY == newSquareCell.PositionY && cell.Value == newSquareCell.Value)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool IsGoodHorizontal(Cell newSquareCell)
+        {
+            foreach (var cell in cells)
+            {
+                //проверяем есть ли в целл вообще число. Если его нет, тогда мы точно ему не мешаем.
+                if (cell.Value != null)
+                {
+                    if (!cell.Equals(newSquareCell))
+                    {
+                        if (cell.PositionX == newSquareCell.PositionX && cell.Value == newSquareCell.Value)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        public void SquareForwardChecking()
+        {
+            FindSquareForwardChecking(0, 0);
+        }
+
+        private bool FindSquareForwardChecking(int xPosition, int yPosition)
+        {
+            Parametrs.RECURSIVE_COUNTER++;
+
+            if (yPosition == Parametrs.BOARD_DIMENSION)
+                return true;
+            Cell nextSquareCell = GetCell(xPosition, yPosition);
+
+            //foreach (var value in nextSquareCell.acceptableValues)
+            int tmpCounter = nextSquareCell.acceptableValues.Count; 
+
+            for(int i = 0; i < tmpCounter; i++)
+            {
+                int value = nextSquareCell.acceptableValues.ElementAt(i);
+
+                nextSquareCell.Value = value;
+                if (IsGood(nextSquareCell))
+                {
+                    DeleteValuesFromLines(value, nextSquareCell);
+                    if (FindSquareForwardChecking(
+                        xPosition + 1 != Parametrs.BOARD_DIMENSION ? xPosition + 1 : 0,
+                        xPosition + 1 != Parametrs.BOARD_DIMENSION ? yPosition : yPosition + 1
+                    ))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        nextSquareCell.Value = null;
+                        AddValuesToLines(value, nextSquareCell);
+                    }
+                }
+            }
+            nextSquareCell.Value = null;
+            return false;
+        }
+
+        // делегат вызывает функцию на том обьекте, на котором он был инициализирован?
+        // что делать, если сell - разный
+
+        #region DeleteValuesFromLines
+        private void DeleteValuesFromLines(int value, Cell nextSquareCell)
+        {
+            DeleteValuesFromLinesVertical(value, nextSquareCell);
+            DeleteValuesFromLinesHorizontal(value, nextSquareCell);
+            //пока оставляем его тут
+            //nextSquareCell.acceptableValues.Add(value);
+        }
+
+        private void DeleteValuesFromLinesHorizontal(int value, Cell mainCell)
+        {
+            foreach (Cell cell in cells)
+            {
+                if (cell.PositionX == mainCell.PositionX)
+                    cell.acceptableValues.Remove(value);
+            }
+        }
+
+        private void DeleteValuesFromLinesVertical(int value, Cell mainCell)
+        {
+            foreach (Cell cell in cells)
+            {
+                if (cell.PositionY == mainCell.PositionY)
+                    // do here something with delegate
+                    cell.acceptableValues.Remove(value);
+            }
+        }
+        #endregion
+
+        #region AddValuesToLines 
+        private void AddValuesToLines(int value, Cell nextSquareCell)
+        {
+            AddValuesToLinesVertical(value, nextSquareCell);
+            AddValuesToLinesHorizontal(value, nextSquareCell);
+            //потому что мы уже попробовали и не нужно повторяться
+            //nextSquareCell.acceptableValues.Remove(value);
+        }
+
+        private void AddValuesToLinesHorizontal(int value, Cell mainCell)
+        {
+            foreach (Cell cell in cells)
+            {
+                if (cell.PositionX == mainCell.PositionX)
+                    cell.acceptableValues.Add(value);
+            }
+        }
+
+        private void AddValuesToLinesVertical(int value, Cell mainCell)
+        {
+            foreach (Cell cell in cells)
+            {
+                if (cell.PositionY == mainCell.PositionY)
+                    // do here something with delegate
+                    cell.acceptableValues.Add(value);
+            }
+        }
+        #endregion
+        #endregion
 
         public void ForwardChecking()
         {
@@ -74,22 +268,23 @@ namespace NQueensProblem
             FindQueensRecursiveForwardChencking(0);
         }
         
-        private bool FindQueensRecursiveForwardChencking(int yPosition)
+        private bool  FindQueensRecursiveForwardChencking(int yPosition)
         {
+            Parametrs.RECURSIVE_COUNTER++;
+
 #if VISUALIZATION
             RenderAllQueens();
 #endif
             if (yPosition == Parametrs.BOARD_DIMENSION)
                 return true;
             //ищем следующий свободный на уровне y + такой , что бы мы там еще не были 
-            //Cell nextEmptyCell = GetNextEmptyCell(yPosition); 
-            Cell nextEmptyCell = GetNextRandomEmptyCell(yPosition);
+            Cell nextEmptyCell = GetNextEmptyCell(yPosition); 
+            //Cell nextEmptyCell = GetNextRandomEmptyCell(yPosition);
             
             if (nextEmptyCell != null)
             {
                 Queen queen = new Queen(nextEmptyCell);
                 AddQueen(queen);
-                boardForm.AddTextToTextBox($"Queen added to {nextEmptyCell.ShowPozitions()}\n");
                 if (FindQueensRecursiveForwardChencking(yPosition + 1))
                     return true;
                 else
@@ -103,8 +298,19 @@ namespace NQueensProblem
                     }
                 }
             }
-            //boardForm.AddTextToTextBox($"Cell {nextEmptyCell.ShowPozitions()} is bad for queen to find solution\n");
             return false;
+        }
+
+        internal void DrawCellsDebug()
+        {
+            for (int i = 0; i < Parametrs.BOARD_DIMENSION; i++)
+            {
+                for (int j = 0; j < Parametrs.BOARD_DIMENSION; j++)
+                {
+                    Debug.Write($"{GetCell(i,j).Value}" + "\t");
+                }
+                Debug.WriteLine("");
+            }
         }
 
         private Cell GetNextEmptyCell(int yPosition)
@@ -158,7 +364,7 @@ namespace NQueensProblem
             }
         }
 
-        #region CellsComparing
+#region CellsComparing
 
         /// <summary>
         /// Checkes if any of queens beats another queen
@@ -285,15 +491,21 @@ namespace NQueensProblem
             }
             return false;
         }
-        #endregion
+#endregion
 
         private Cell GetCell(int x, int y)
         {
-            foreach (var cell in cells)
+            for (int i = 0; i < cells.Count; i++)
             {
-                if (cell.PositionX == x && cell.PositionY == y)
-                    return cell;
+                if (cells.ElementAt(i).PositionX == x && cells.ElementAt(i).PositionY == y)
+                    return cells.ElementAt(i);
             }
+
+            //foreach (var cell in cells)
+            //{
+            //    if (cell.PositionX == x && cell.PositionY == y)
+            //        return cell;
+            //}
 
             return null;
         }
@@ -364,7 +576,7 @@ namespace NQueensProblem
             Thread.Sleep(boardForm.GetRenderDelay());
             RenderAllLinesForQueen(queen, Parametrs.COLOR_DOESNT_BEAT_DART_1);
             SetDefualtColorsToLines(queen);
-            boardForm.AddTextToTextBox($"Queen deleted from {queen.Cell.ShowPozitions()}");
+            boardForm.AddTextToTextBox($"Queen deleted from {queen.Cell.ShowPozitions()}" + Environment.NewLine);
 #endif
             DeleteAllCellsUnderAttack(queen);
             queens.Remove(queen);

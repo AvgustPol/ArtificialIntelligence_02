@@ -79,6 +79,14 @@ namespace CSVFileReadWrite
             Save();
         }
 
+        public void AddCellToWorksheetIntoColumnsABC(int var1, int var2, int var3)
+        {
+            AddCellToWorksheet(rowCounterA++, COLUMN_A_INDEX, var1);
+            AddCellToWorksheet(rowCounterB++, COLUMN_B_INDEX, var2);
+            AddCellToWorksheet(rowCounterC++, COLUMN_C_INDEX, var3);
+            Save();
+        }
+
         public void AddCellToWorksheetIntoColumnsABCD<T>(T generationNumber, T bestCost, T averageCost, T worstCost)
         {
             AddCellToWorksheet(rowCounterA++, COLUMN_A_INDEX, generationNumber);

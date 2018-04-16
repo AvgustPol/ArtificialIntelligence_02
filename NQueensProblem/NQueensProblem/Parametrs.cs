@@ -4,16 +4,20 @@ namespace NQueensProblem
 {
     static class Parametrs
     {
-        static readonly public int[] DIMENSIONS = new int [] {4, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 40};
+        static public int RECURSIVE_COUNTER = 0;
 
-        static public int BOARD_DIMENSION = 8;
-        static public int NUMBER_OF_QUEENS = 8;
+        //, 18, 20, 22, 24, 26, 28, 30, 40, 30
+        static readonly public int[] DIMENSIONS = new int[] { 30 };
+
+        static public int BOARD_DIMENSION = 4;
 
         static readonly public int CELL_SIZE = 50;
         static readonly public int DIAGONAL_DESIRED_DIFFERENCE = 2;
 
-        static readonly public char BACK_TRACKING_PARAMETR = 'b';
-        static readonly public char FORWARD_CHECKING_PARAMETR = 'f';
+        public const string BACK_TRACKING_PARAMETR             = "BACK_TRACKING";
+        public const string FORWARD_CHECKING_PARAMETR          = "FORWARD_CHECKING";
+        public const string SQUARE_BACK_TRACKING_PARAMETR      = "squre BACK_TRACKING";
+        public const string SQUARE_FORWARD_CHECKING_PARAMETR   = "squre FORWARD_CHECKING";
 
         static readonly public Color COLOR_DART = Color.FromArgb(202, 167, 132);
         static readonly public Color COLOR_LIGHT = Color.FromArgb(230, 220, 186);
@@ -33,7 +37,6 @@ namespace NQueensProblem
         public static void SetBoardDIMENSION(int dimention)
         {
             BOARD_DIMENSION = dimention;
-            NUMBER_OF_QUEENS = dimention;
         }
     }
 }

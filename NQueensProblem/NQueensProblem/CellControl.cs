@@ -1,5 +1,5 @@
-﻿#define VISUALIZATION
-//#undef VISUALIZATION
+﻿//#define VISUALIZATION
+#undef VISUALIZATION
 
 using System;
 using System.Drawing;
